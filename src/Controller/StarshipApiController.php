@@ -5,6 +5,7 @@
 namespace App\Controller;
 
 use App\Model\Starship;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class StarshipApiController extends AbstractController
 {
     #[Route('/api/starships')]
-    public function getCollection(): Response
+    public function getCollection(LoggerInterface $mylogger): Response
     {
         
         $starships = [
@@ -22,6 +23,10 @@ class StarshipApiController extends AbstractController
         ];
 
         //return new Response(json_encode($starships), 200, ['Content-Type' => 'application/json']);
+        
+        $mylogger->info('Returning ' . count($starships) . ' starships from API.', ['from'=>'starship_api']);
+
+        //dd($mylogger);
         return $this->json($starships);
     }
 
