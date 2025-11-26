@@ -6,29 +6,22 @@
 
 <h1>Hi There!</h1>
 
-<p> There is {{ starship_count }} starships available in our store. </p>
+<p> There is {{ starships | length }} starships available in our store. </p>
 
-{% if starship_count > 400 %}
+{% if starships | length > 2 %}
     <p>It's a lot!</p>
 {% endif %}
 
 <table>
         <tr>
             <th>Name</th>
-            <td>{{ myShip.name }}</td>
+            <td><a href="{{ path('app_starship_show', {id:myShip.id} ) }}">{{ myShip.name }}</a></td>
         </tr>
         <tr>
             <th>Class</th>
             <td>{{ myShip.class }}</td>
         </tr>
-        <tr>
-            <th>Captain</th>
-            <td>{{ myShip.captain|upper|lower|title }}</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>{{ myShip.registry }}</td>
-        </tr>
+
 </table>
 
 {% endblock body %}
